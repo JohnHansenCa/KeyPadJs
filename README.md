@@ -9,3 +9,5 @@ There are 3 primary ways to configure a keypad using KeyPadUI.
 KeyPadUi:
 - makes extensive use of defaults so that a minimal amount of configuration is required but still providing significant control.
 - provides only a thin vineer of javascript wrapping native CSS and HTML functionality.
+- takes advantage of both CSS selectors and classes providing maximum flexibility with minimal startup configuration.
+- preconfigured CSS library.
