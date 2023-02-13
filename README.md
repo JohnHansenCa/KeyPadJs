@@ -1,4 +1,4 @@
-# KeyPadUI
+# KeyPadJs
 Typescript project providing a runtime configurable keypad that is primarily targeted for calculator style applications. 
 
 There are 3 primary ways to configure a keypad using KeyPadUI.
