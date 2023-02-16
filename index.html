@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KeyPad JS Demo</title>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="src/styles/keypad.css">
+
+    <!-- FastActive allows a stylus on a touch device to properly invoke the
+    CSS :active pseudo-class. -->
+    <script src="src/libs/FastActive.min.js" defer=""></script>
+    <!-- Provides calculator functionality for the demo. See Mathjs.org for details. -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.1/math.min.js"></script>
+    <script type="module" src="src/scripts/kp.js"></script>
+    <script type="module" src="src/scripts/demo/calculatorDemo.js"></script>
+    <style>
+        .box-text{
+            width:40%;
+            flex-wrap: wrap; 
+            max-width: 450px
+        }
+        .box-keypad{
+          width:60%;
+          display:flex;
+          flex-wrap:wrap;
+          max-width: 450px;
+        }
+        @media only screen and (max-width: 500px){
+            .box-keypad,
+            .box-text{
+                width:100%;
+            }
+        }
+        .container{
+            display: flex;
+            flex-wrap: wrap; 
+            margin: 0 auto;}
+    </style>
+  </head>
+  <body>
+    <h1>KeyPad JS Demo</h1>
+    <div class="container" >
+      <div class ="box-text">
+        <h5><ul><li><a href="https://github.com/JohnHansenCa/KeyPadJs">JS source code on github </a></li>
+       <li><a href="https://github.com/JohnHansenCa/KeyPadCss">CSS only source code on github </a></li></ul></h5>
+        <p>JavaScript demo and source code under construction. This demo uses Mathjs for the calculator functionality.</p>
+      </div>
+    <div class="box-keypad">
+    <div id="resultContainer" >
+      Calculator Status: <div id="calc-status" data-kp="display" style="border:solid; border-width:1px; border-color: fuchsia; height:1.2rem"></div>
+      Mathjs Result:<div id="calc-display" data-kp="display" style="border:solid; border-width:1px; border-color: blue">- </div>
+       KeyPad:<div id="key-bucket" data-kp="display" style="border:solid; border-width:1px; border-color: red; height:1.2rem"></div>
+    </div>
+    <div style="border:1px solid red; font-size: large;">-Key Handler places key click values in KeyPad container above.</div>
+    <div id="keypadcontainer" class="kp-light kp-alpha" style="display:flex; width:100%">
+    <div id="keyContainer4by5" class="kp-grid-container" style=" grid-template-columns:  1fr 1fr 1fr 1fr; font-size: 30px;  width:100%">
+    
+      <div id="kp-key-delete" class="kp-key kp-key-style kp-color kp-red" data-kp="key">␡</div>
+      <div  class="kp-key kp-key-style kp-color kp-orange">𝑓x</div>
+      <div  class="kp-key kp-key-style kp-color kp-yellow">▲</div>
+      <button id="kp-key-backspace" class="kp-key kp-key-style kp-color kp-blue" data-kp="key">⌫</button>
+     
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">(</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">)</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">%</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">÷</div>
+
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">7</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">8</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">9</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">×</div>
+      
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">4</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">5</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">6</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">-</div>
+  
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">1</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">2</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">3</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">+</div>
+
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">0</div>
+      <div  class="kp-key kp-key-style kp-color" data-kp="key">.</div>
+      <div id="kp-key-equal" class="kp-key kp-key-style kp-color kp-blue">=</div>
+      <div id="kp-key-carriage-return" class="kp-key kp-key-style kp-color kp-green">⏎</div>
+    </div>
+</div>
+    </div>
+    </div>
+<script>
+
+  var referenceSize;
+  var container2 = document.getElementById("keyContainer4by5");
+  function setFontSize(containerElement, multipler){
+    let size = (referenceSize*multipler).toString();
+    containerElement.style.fontSize = `${size}px`;
+  }
+  // TODO: Develop a better solution
+  // There is probably a better solution
+  // https://css-tricks.com/fitting-text-to-a-container/
+  function resizeFunc(){
+    referenceSize = document.getElementById("keyContainer4by5").clientWidth;
+    setFontSize(container2, .1);
+  }
+  window.addEventListener("resize", resizeFunc);
+  resizeFunc();
+  let x = math.evaluate("8+5");
+console.log(x);
+</script>
+  </body>
+</html>
