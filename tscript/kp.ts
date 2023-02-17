@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import * as Popper from "https://unpkg.com/@popperjs/core@2.11.6/dist/esm/popper.js"
 // import * as Mathjs from "./mathjs"
@@ -130,21 +131,21 @@ function createUniqueId(startOfId:string):string{
 //let body =document.getElementsByTagName('body')[0] as HTMLElement;
 //body.style.visibility = "hidden";
 
-let resultDiv:HTMLElement;
-let mathResultDiv:HTMLElement;
+//const resultDiv:HTMLElement;
+//let mathResultDiv:HTMLElement;
 //type eventHandlerType = (event: Event)=> void;
-let buttonEventHandler:EventListener= function(event:Event){
-    let element:HTMLElement = event.target as HTMLElement;
+const buttonEventHandler:EventListener= function(event:Event){
+    const element:HTMLElement = event.target as HTMLElement;
     // if(resultDiv != null)
     //     resultDiv.innerText = resultDiv.innerText + element.innerText;
     // TODO: change to element.kpObject.getElementValue(element)
     if(DefaultListner.key != null)DefaultListner.key(element.innerText, element);
 }
 let popupContainers:HTMLElement[] = [];
-let popupEventHandler:(event:Event)=>void = function(event:Event){
-    let element:HTMLElement = event.target as HTMLElement;
-    let puContainer =  element.nextElementSibling as HTMLElement; // todo: this is too simple, need to check
-    let isSomeParentPopup =parentPopupKey(element) != null;
+const popupEventHandler:(event:Event)=>void = function(event:Event){
+    const element:HTMLElement = event.target as HTMLElement;
+    const puContainer =  element.nextElementSibling as HTMLElement; // todo: this is too simple, need to check
+    const isSomeParentPopup =parentPopupKey(element) != null;
     if(popupContainers.includes(puContainer)){
         if(popupContainers[0] == puContainer){
             closeAllPopups();
@@ -157,21 +158,23 @@ let popupEventHandler:(event:Event)=>void = function(event:Event){
         Popper.createPopper(element, puContainer, {
             placement: 'right',
           });
-        puContainer.classList.remove("kp-hide");
+        //puContainer.classList.remove("kp-hide");
+        puContainer.style.display = "";
         popupContainers.push(puContainer);
     }
     else{
         if(!isSomeParentPopup && popupContainers != null)closeAllPopups();
-        puContainer.classList.remove("kp-hide");
+        //puContainer.classList.remove("kp-hide");
+        puContainer.style.display = "";
         popupContainers.push(puContainer);
     }
     event.stopPropagation();
 }
-let closeAllPopupsHandler = function(event: Event){
+const closeAllPopupsHandler = function(event: Event){
     closeAllPopups();
     event.stopPropagation;
 }
-let closeAllPopups = function(){
+const closeAllPopups = function(){
     popupContainers.forEach(e=>hidePopup(e));
     popupContainers = [];
 }
@@ -186,7 +189,8 @@ function closeSomePopups(puContainer:HTMLElement){
 }
 function hidePopup(e:HTMLElement){
     if(e != null)
-        e.classList.add("kp-hide");
+        e.style.display = "none";
+       // e.classList.add("kp-hide");
 }
 function parentPopupKey(e:HTMLElement):HTMLElement{
     let parentDiv = e.parentElement;
@@ -194,7 +198,7 @@ function parentPopupKey(e:HTMLElement):HTMLElement{
     while(parentDiv != null){
         _parentPopupKey = parentDiv.previousElementSibling;
         if(_parentPopupKey != null){
-            let s = _parentPopupKey.getAttribute("data-kp");
+            const s = _parentPopupKey.getAttribute("data-kp");
             if(s == 'popup-key'){
                 break;
             }
@@ -206,9 +210,9 @@ function parentPopupKey(e:HTMLElement):HTMLElement{
 addEventListener('DOMContentLoaded', (event) => {
     //let body = document.getElementsByTagName("body")[0];
     //body.style.visibility = "hidden";
-    resultDiv = document.getElementById("resultDiv");
+    //resultDiv = document.getElementById("resultDiv");
     //let keyColl:HTMLCollectionOf<Element> = document.getElementsByClassName("kp-key");
-    let keys:HTMLElement[] = Array.from(document.querySelectorAll("[data-kp]")) as HTMLElement[];
+    const keys:HTMLElement[] = Array.from(document.querySelectorAll("[data-kp]")) as HTMLElement[];
     keys.forEach(element=>{
         if(element.getAttribute("data-kp") === "popup-key"){
             element.addEventListener("click",popupEventHandler);
@@ -233,7 +237,7 @@ addEventListener('DOMContentLoaded', (event) => {
               });
         }
     });
-    mathResultDiv = document.getElementById("mathResultDiv");
+    //mathResultDiv = document.getElementById("mathResultDiv");
     document.addEventListener("click", closeAllPopupsHandler);
     
  //resultDiv.addEventListener('DOMSubtreeModified', calculate);

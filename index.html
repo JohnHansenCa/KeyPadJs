@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- TODO: Add eslint for html files, remove ignore statment in eslintrc.js
+https://www.npmjs.com/package/eslint-plugin-html -->
 <html>
   <head>
     <title>KeyPad JS Demo</title>
@@ -16,6 +18,9 @@
     <script type="module" src="src/scripts/kp.js"></script>
     <script type="module" src="src/scripts/demo/calculatorDemo.js"></script>
     <style>
+      body {
+        overflow-x: hidden; /* Hide horizontal scrollbar */
+      }
         .box-text{
             width:40%;
             flex-wrap: wrap; 
@@ -40,11 +45,11 @@
     </style>
   </head>
   <body>
-    <h1>KeyPad JS Demo</h1>
+    <h3>KeyPad JS Demo</h3>
     <div class="container" >
       <div class ="box-text">
-        <h5><ul><li><a href="https://github.com/JohnHansenCa/KeyPadJs">JS source code on github </a></li>
-       <li><a href="https://github.com/JohnHansenCa/KeyPadCss">CSS only source code on github </a></li></ul></h5>
+        <ul><li><a href="https://github.com/JohnHansenCa/KeyPadJs">JS source code on github </a></li>
+       <li><a href="https://github.com/JohnHansenCa/KeyPadCss">CSS only source code on github </a></li></ul>
         <p>JavaScript demo and source code under construction. This demo uses Mathjs for the calculator functionality.</p>
       </div>
     <div class="box-keypad">
@@ -88,8 +93,32 @@
       <div id="kp-key-carriage-return" class="kp-key kp-key-style kp-color kp-green">⏎</div>
     </div>
 </div>
+<div id="func-button-container" class="kp-grid-container kp-alpha kp-light" style="width:100%">
+  <button class="kp-key kp-key-style kp-color" data-kp="popup-key" data-kp-placement="below">Func</button>
+  <div class="kp-flex-container"  style="display:none" >
+    <div class="kp-list-container">
+      <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="log-btn-container">trig</button>
+      <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="math-btn-container">math</button>
+      <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="">some stuff</button>
     </div>
+    <div class="kp-grid-container" style="grid-template-columns: 1fr">
+      <div id="log-btn-container" class="kp-grid-container" style="grid-template-columns: 1fr 1fr 1fr">
+        <button  class="kp-key kp-key-style kp-color" data-kp="key">sin()</button>
+        <button  class="kp-key kp-key-style kp-color" data-kp="key">cos()</button>
+        <button  class="kp-key kp-key-style kp-color" data-kp="key">tan()</button>
+      </div>
+      <div id="math-btn-container" class="kp-grid-container"  style="grid-template-columns: 1fr 1fr 1fr">
+        <button  class="kp-key kp-key-style kp-color" data-kp="key">sin()</button>
+        <button  class="kp-key kp-key-style kp-color" data-kp="key">cos()</button>
+        <button  class="kp-key kp-key-style kp-color" data-kp="key">tan()</button>
+      </div>
     </div>
+  </div>
+</div>
+</div>
+</div>
+
+    
 <script>
 
   var referenceSize;
