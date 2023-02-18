@@ -1,5 +1,5 @@
 import { iKpKeyInfo} from "./definitions";
-import { Kind, dataAttribute  } from "./kp.js";
+import { Kind, dataAttribute, KpDataAttribute } from "./kp.js";
 import { Container } from "./container.js";
 
 /**
@@ -48,6 +48,19 @@ class kpUtil{
     isElmentDiv(element:HTMLElement):boolean{
         return element.nodeName === "DIV";
     }
+    /** Returns an empty string, "", if not found. */
+    getKpAttribute(element: HTMLElement, attr:KpDataAttribute):string{
+        const attrValue =element.getAttribute(attr);
+        if(attrValue == null)
+            return "";
+        else return attrValue;
+    }
+    getTarget(element:HTMLElement):HTMLElement{
+        const attr = Util.getKpAttribute(element, "data-kp-target");
+        if(attr === "")return null;
+        const target = document.getElementById(attr);
+        return target;
+    }
     getChildContainer(element:HTMLElement):HTMLElement{
         let containerElement = null;
         Array.from(element.children).forEach(e =>{
@@ -87,7 +100,7 @@ class kpUtil{
      * @returns 
      */
     isKind(element:HTMLElement, kind: Kind):boolean{
-        let attr = element.getAttribute(dataAttribute.KP);
+        const attr = element.getAttribute(dataAttribute.KP);
         if(attr == null)return false;
         if(attr === kind.name)return true;
         return false;

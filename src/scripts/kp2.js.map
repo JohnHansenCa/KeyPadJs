@@ -1,1 +1,1 @@
-{"version":3,"file":"kp2.js","sourceRoot":"","sources":["../../tscript/kp2.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,GAAG,CAAC,QAAQ,CAAC,CAAC;AACtB,SAAS,IAAI;AAEb,CAAC;AACD,OAAO,EAAC,IAAI,EAAC,CAAA"}
+{"version":3,"file":"kp2.js","sourceRoot":"","sources":["../../tscript/kp2.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,GAAG,CAAC,QAAQ,CAAC,CAAC;AACtB,SAAS,IAAI;IACZ,OAAO,CAAC,GAAG,CAAC,MAAM,CAAC,CAAC;AACrB,CAAC;AACD,OAAO,EAAC,IAAI,EAAC,CAAA"}

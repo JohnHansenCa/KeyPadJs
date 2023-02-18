@@ -44,6 +44,21 @@ class kpUtil {
     isElmentDiv(element) {
         return element.nodeName === "DIV";
     }
+    /** Returns an empty string, "", if not found. */
+    getKpAttribute(element, attr) {
+        const attrValue = element.getAttribute(attr);
+        if (attrValue == null)
+            return "";
+        else
+            return attrValue;
+    }
+    getTarget(element) {
+        const attr = Util.getKpAttribute(element, "data-kp-target");
+        if (attr === "")
+            return null;
+        const target = document.getElementById(attr);
+        return target;
+    }
     getChildContainer(element) {
         let containerElement = null;
         Array.from(element.children).forEach(e => {
@@ -86,7 +101,7 @@ class kpUtil {
      * @returns
      */
     isKind(element, kind) {
-        let attr = element.getAttribute(dataAttribute.KP);
+        const attr = element.getAttribute(dataAttribute.KP);
         if (attr == null)
             return false;
         if (attr === kind.name)

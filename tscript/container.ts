@@ -202,7 +202,7 @@ class Container implements iKp{
      * null is returned.
      * Also see {@link Container.parentContainer} */
     get parentKey():Key{
-        let parentElement = this._element.parentElement as kpHTMLElement;
+        const parentElement = this._element.parentElement as kpHTMLElement;
         // if(parentElement == null) return null;
         // if(parentElement.kpObject == undefined)return null;
         // if(!(parentElement.kpObject instanceof Key))return null;

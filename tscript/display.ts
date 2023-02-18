@@ -17,7 +17,7 @@ class Display implements iKp {
     private static _emptyDisplay:Display;
     /** static constructor */
     static{
-        let emptyElement = document.createElement("div") as HTMLElement;
+        const emptyElement = document.createElement("div") as HTMLElement;
         emptyElement.id = "empty"
         Display._emptyDisplay = new Display(emptyElement as kpHTMLElement);
         
@@ -37,11 +37,11 @@ class Display implements iKp {
      * @returns 
      */
     static getInstance(elementId:string):Display{
-        let instance = Display._instanceMap.get(elementId);
+        const instance = Display._instanceMap.get(elementId);
         if (instance != null){
             return instance;
         }
-        let element = document.getElementById(elementId);
+        const element = document.getElementById(elementId);
         if(!Util.isKind(element, Kind.Display))  return null;
         //todo: add error if elementID is not found
         
@@ -77,7 +77,7 @@ class Display implements iKp {
         return this;
     }
     addText(text:string):Display{
-        this._element.innerText = this._element.innerText + text;
+        this._element.textContent = this._element.textContent + text;
         return this;
     }
     clear():Display{

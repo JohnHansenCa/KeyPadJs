@@ -14,6 +14,7 @@ import { getMathBaseUnits, getMathUnits, baseUnit, special } from "./mathUtil.js
 //         UNITS: Record<string, Mathjs.UnitComponent>;
 //     }
 // }
+let addSpace="";
 /**
  * TODO: fix @see comment below
  * The function below will become the {@link kp.DefaultListner.key} 
@@ -25,13 +26,26 @@ const _keyHandler:kp.KeyListener = function(keyValue:string, e:HTMLElement):void
     const _current = kp.Display.getInstance("key-bucket");
     if(_current != null) // TODO: get rid of statement when empty is added to Display
     {
-        const char = keyValue;
+        let char = keyValue;
         if(char === "\b" || char == "⌫")
         _current.displayText(_current.text.slice(0, -1));
         else if (char === "␡")
         _current.clear();
-        else
-            _current.displayText(_current.text + char);
+        else if (char === "to"){
+          char = " "+ char + " ";
+          _current.displayText(_current.text + char);
+          addSpace=" ";
+        }
+        else if (char === "in"){
+          char = " "+ char + " ";
+          _current.displayText(_current.text + char);
+          addSpace=" ";
+        }
+        else{
+            
+            _current.displayText(_current.text + addSpace + char);
+            addSpace = "";
+        }
     }
 }
 //https://www.typescriptlang.org/docs/handbook/2/objects.html#intersection-types

@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import * as Popper from "https://unpkg.com/@popperjs/core@2.11.6/dist/esm/popper.js";
+import { Util } from "./util.js";
 /**
  * HtmlElement data attributes supported by {@link kp}.
  */
@@ -9,7 +10,8 @@ const dataAttribute = Object.freeze({
     VALUE: "data-kp-value",
     LABEL: "data-kp-label",
     KPDISPLAY: "data-kp-display",
-    KPTARGET: "data-kp-target"
+    KPTARGET: "data-kp-target",
+    PLACEMENT: "data-kp-placement"
 });
 /** Identifies the kind of kp such as {@link Key}, {@link Container} etc*/
 class Kind {
@@ -143,8 +145,13 @@ const popupEventHandler = function (event) {
         Popper.createPopper(element, puContainer, {
             placement: 'right',
         });
+        //TODO: close peer popup containers if open 
+        // TODO: create util.popupContainer(popupelement) and util.peerPopupContainer(puContainer);
+        // TODO: add unit tests for this-
+        //closePeerContainers(puContainer);
         //puContainer.classList.remove("kp-hide");
         puContainer.style.display = "";
+        window.dispatchEvent(new Event('resize'));
         popupContainers.push(puContainer);
     }
     else {
@@ -152,10 +159,33 @@ const popupEventHandler = function (event) {
             closeAllPopups();
         //puContainer.classList.remove("kp-hide");
         puContainer.style.display = "";
+        window.dispatchEvent(new Event('resize'));
         popupContainers.push(puContainer);
     }
     event.stopPropagation();
 };
+const showOnlyEventHandler = function (event) {
+    const element = event.target;
+    // const attr = Util.getKpAttribute(element, "data-kp-target");
+    // if(attr === "")return;
+    // const target = document.getElementById(attr);
+    const target = Util.getTarget(element);
+    if (target == null)
+        return;
+    showOnly(target);
+    event.stopPropagation();
+};
+function showOnly(target) {
+    const parent = target.parentElement;
+    Array.from(parent.children).forEach(element => {
+        if (element != target) {
+            element.style.display = "none";
+            //           element.classList.remove(selectCssClass);
+        }
+    });
+    target.style.display = "";
+    //    target.classList.add(selectCssClass);
+}
 const closeAllPopupsHandler = function (event) {
     closeAllPopups();
     event.stopPropagation;
@@ -172,6 +202,9 @@ function closeSomePopups(puContainer) {
         hidePopup(topVisible);
     }
 }
+// function closePeerContainers(element:HTMLElement, puContainer: HTMLElement){
+//     element.parentElement
+// }
 function hidePopup(e) {
     if (e != null)
         e.style.display = "none";
@@ -192,7 +225,10 @@ function parentPopupKey(e) {
     }
     return _parentPopupKey;
 }
+let selectCssClass = "";
 addEventListener('DOMContentLoaded', (event) => {
+    const body = document.getElementsByTagName("body")[0];
+    selectCssClass = Util.getKpAttribute(body, "data-kp-select");
     //let body = document.getElementsByTagName("body")[0];
     //body.style.visibility = "hidden";
     //resultDiv = document.getElementById("resultDiv");
@@ -216,9 +252,21 @@ addEventListener('DOMContentLoaded', (event) => {
     });
     keys.forEach(element => {
         if (element.getAttribute("data-kp") === "popup-key") {
+            let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
+            if (_placement === "")
+                _placement = 'right';
             Popper.createPopper(element, element.nextElementSibling, {
-                placement: 'right',
+                placement: _placement,
             });
+        }
+    });
+    keys.forEach(element => {
+        if (element.getAttribute("data-kp") === "show-only-key") {
+            element.addEventListener("click", showOnlyEventHandler);
+            const target = Util.getTarget(element);
+            if (target != null && target.style.display === "") {
+                showOnly(target);
+            }
         }
     });
     //mathResultDiv = document.getElementById("mathResultDiv");

@@ -19,3 +19,14 @@ There are 3 primary ways to configure a keypad using KeyPadUI.
 - Employs happy path coding. 
 - No unit tests- coming soon.
 - Only HTML markup configuration is operational.
+
+## Major Functionality ##
+### Data Attributes ###
+- data-kp = "key"
+    = Makes a button or div into a key.  Values of the keys when clicked can be acquired by the default key Listener.  See the CalculatorDemo for example usage.
+- data-kp = "pop-key"
+    - Makes a button or div into a popup key.  The next div will automatically be the popup content. Popup keys can be nested as shown by the CalculatorDemo 'units' popup key.
+- data-kp = "show-only-key"
+    - Makes the target element visible while closing sibling elements. See the CalculorDemo 'fx' key popup container's buttons 'trig' and 'math' for examples of 'show-only-key's.
+- data-kay = 'display'
+    - Associates a "Display" object with each 'display' element providing several convenience/syntactical sugar methods and properties.

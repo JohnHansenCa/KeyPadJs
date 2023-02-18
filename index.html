@@ -7,7 +7,7 @@ https://www.npmjs.com/package/eslint-plugin-html -->
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="src/styles/keypad.css">
+    <link rel="stylesheet" href="./KeyPadCss/src/styles/keypad.css">
 
     <!-- FastActive allows a stylus on a touch device to properly invoke the
     CSS :active pseudo-class. -->
@@ -44,7 +44,7 @@ https://www.npmjs.com/package/eslint-plugin-html -->
             margin: 0 auto;}
     </style>
   </head>
-  <body>
+  <body data-kp-select="kp-select">
     <h3>KeyPad JS Demo</h3>
     <div class="container" >
       <div class ="box-text">
@@ -63,8 +63,64 @@ https://www.npmjs.com/package/eslint-plugin-html -->
     <div id="keyContainer4by5" class="kp-grid-container" style=" grid-template-columns:  1fr 1fr 1fr 1fr; font-size: 30px;  width:100%">
     
       <div id="kp-key-delete" class="kp-key kp-key-style kp-color kp-red" data-kp="key">␡</div>
-      <div  class="kp-key kp-key-style kp-color kp-orange">𝑓x</div>
-      <div  class="kp-key kp-key-style kp-color kp-yellow">▲</div>
+      <div id="func-key" class="kp-key kp-key-style kp-color kp-orange" data-kp="popup-key" data-kp-placement="bottom">𝑓x</div>
+      <div id="func-popup-container" class="kp-flex-container"  style="display:none" >
+        <div class="kp-list-container">
+          <!-- style="align-self:unset; height:fit-content" -->
+          <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="log-btn-container1">trig</button>
+          <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="math-btn-container1">math</button>
+          <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="">some stuff</button>
+        </div>
+        <div class="kp-grid-container" style="grid-template-columns: 1fr">
+          <div id="log-btn-container1" class="kp-grid-container" style="grid-template-columns: 1fr 1fr 1fr">
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">sin()</button>
+             <button  class="kp-key kp-key-style kp-color" data-kp="key">cos()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">tan()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">asin()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">acos()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">atan()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">sinh()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">cosh()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">tanh()</button> 
+         
+          </div>
+          <div id="math-btn-container1" class="kp-grid-container"  style="grid-template-columns: 1fr 1fr 1fr">
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">pi</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">e</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">1/x</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">^</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">x2</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">sqrt()</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">log</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">ln</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">!</button>
+            
+          </div>
+        </div>
+      </div>
+      <div  class="kp-key kp-key-style kp-color kp-yellow" style="font-size:15px" data-kp="popup-key" data-kp-placement="bottom">Units</div>
+      <div id="units-popup-container" class ="kp-list-container" style="display:none">
+        <button id="massbtn" class="kp-key kp-key-style kp-color kp-list-key" data-kp="popup-key" >mass</button>
+        <div id="massdiv" class ="kp-list-container" style="display:none" >
+          <button class="kp-key kp-key-style kp-color" data-kp="key">kg</button>
+          <button class="kp-key kp-key-style kp-color" data-kp="key">lb</button>
+          <button class="kp-key kp-key-style kp-color" data-kp="key">gram</button>
+          <button class="kp-key kp-key-style kp-color" data-kp="key">tonne</button>
+        </div>
+          <div id="lengthbtn"   class="kp-key kp-key-style kp-color kp-green kp-list-key" data-kp="popup-key">length</div>
+          <div id="lengthdiv" class ="kp-list-container" style="display:none">
+            <button class="kp-key kp-key-style kp-color" data-kp="key">m</button>
+            <button class="kp-key kp-key-style kp-color" data-kp="key">ft</button>
+            <button class="kp-key kp-key-style kp-color" data-kp="key">inch</button>
+            <button class="kp-key kp-key-style kp-color" data-kp="key">km</button>
+          </div>
+          <button id="tempbtn" class="kp-key kp-key-style kp-color kp-list-key" data-kp="popup-key">temperature</button>
+          <div id="tempdiv" class ="kp-list-container" style="display:none">
+            <button class="kp-key kp-key-style kp-color" data-kp="key">fahrenheit</button>
+          </div>
+          <button id="tempbtn" class="kp-key kp-key-style kp-color kp-list-key" data-kp="key"> to </button>
+          <button id="tempbtn" class="kp-key kp-key-style kp-color kp-list-key" data-kp="key"> in </button>
+    </div>
       <button id="kp-key-backspace" class="kp-key kp-key-style kp-color kp-blue" data-kp="key">⌫</button>
      
       <div  class="kp-key kp-key-style kp-color" data-kp="key">(</div>
@@ -93,30 +149,9 @@ https://www.npmjs.com/package/eslint-plugin-html -->
       <div id="kp-key-carriage-return" class="kp-key kp-key-style kp-color kp-green">⏎</div>
     </div>
 </div>
-<div id="func-button-container" class="kp-grid-container kp-alpha kp-light" style="width:100%">
-  <button class="kp-key kp-key-style kp-color" data-kp="popup-key" data-kp-placement="below">Func</button>
-  <div class="kp-flex-container"  style="display:none" >
-    <div class="kp-list-container">
-      <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="log-btn-container">trig</button>
-      <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="math-btn-container">math</button>
-      <button  class="kp-key kp-key-style kp-color" data-kp="show-only-key" data-kp-target="">some stuff</button>
-    </div>
-    <div class="kp-grid-container" style="grid-template-columns: 1fr">
-      <div id="log-btn-container" class="kp-grid-container" style="grid-template-columns: 1fr 1fr 1fr">
-        <button  class="kp-key kp-key-style kp-color" data-kp="key">sin()</button>
-        <button  class="kp-key kp-key-style kp-color" data-kp="key">cos()</button>
-        <button  class="kp-key kp-key-style kp-color" data-kp="key">tan()</button>
-      </div>
-      <div id="math-btn-container" class="kp-grid-container"  style="grid-template-columns: 1fr 1fr 1fr">
-        <button  class="kp-key kp-key-style kp-color" data-kp="key">sin()</button>
-        <button  class="kp-key kp-key-style kp-color" data-kp="key">cos()</button>
-        <button  class="kp-key kp-key-style kp-color" data-kp="key">tan()</button>
-      </div>
     </div>
   </div>
-</div>
-</div>
-</div>
+
 
     
 <script>
@@ -133,6 +168,9 @@ https://www.npmjs.com/package/eslint-plugin-html -->
   function resizeFunc(){
     referenceSize = document.getElementById("keyContainer4by5").clientWidth;
     setFontSize(container2, .1);
+    // TODO: add resize for units button
+    setFontSize(document.getElementById("func-popup-container"), .05);
+    setFontSize(document.getElementById("units-popup-container"), .05);
   }
   window.addEventListener("resize", resizeFunc);
   resizeFunc();

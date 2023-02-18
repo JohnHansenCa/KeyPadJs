@@ -22,11 +22,11 @@ class Display {
      * @returns
      */
     static getInstance(elementId) {
-        let instance = Display._instanceMap.get(elementId);
+        const instance = Display._instanceMap.get(elementId);
         if (instance != null) {
             return instance;
         }
-        let element = document.getElementById(elementId);
+        const element = document.getElementById(elementId);
         if (!Util.isKind(element, Kind.Display))
             return null;
         //todo: add error if elementID is not found
@@ -60,7 +60,7 @@ class Display {
         return this;
     }
     addText(text) {
-        this._element.innerText = this._element.innerText + text;
+        this._element.textContent = this._element.textContent + text;
         return this;
     }
     clear() {
@@ -91,7 +91,7 @@ class Display {
 Display._instanceMap = new Map();
 /** static constructor */
 (() => {
-    let emptyElement = document.createElement("div");
+    const emptyElement = document.createElement("div");
     emptyElement.id = "empty";
     Display._emptyDisplay = new Display(emptyElement);
 })();

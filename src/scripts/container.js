@@ -178,7 +178,7 @@ class Container {
      * null is returned.
      * Also see {@link Container.parentContainer} */
     get parentKey() {
-        let parentElement = this._element.parentElement;
+        const parentElement = this._element.parentElement;
         // if(parentElement == null) return null;
         // if(parentElement.kpObject == undefined)return null;
         // if(!(parentElement.kpObject instanceof Key))return null;
