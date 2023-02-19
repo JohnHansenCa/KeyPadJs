@@ -1,7 +1,7 @@
 # KeyPadJs #
  A Typescript project providing a runtime configurable keypad that is primarily targeted for calculator-style applications (a full calculator project is being developed). 
 
-[Demo- coming soon]()
+[Demo](https://johnhansenca.github.io/KeyPadJs/)
 
 - Provides popup displays that can be styled as dropdown lists or additional keypads. Droplists can cascade, that is dropdown lists can contain drop-down lists.
     - uses [Popper.js](https://popper.js.org/docs/v2/) to position popups and handle boundary conditions.
@@ -22,10 +22,25 @@ There are 3 primary ways to configure a keypad using KeyPadUI.
 
 ## Major Functionality ##
 ### Data Attributes ###
+See the demo [index.html file](https://github.com/JohnHansenCa/KeyPadJs/blob/main/index.html) for an example usage of the attributes.
+
 - data-kp = "key"
-    = Makes a button or div into a key.  Values of the keys when clicked can be acquired by the default key Listener.  See the CalculatorDemo for example usage.
+    = Makes a button or div into a key.  Values of the keys when clicked can be acquired by the default key Listener.  See the [CalculatorDemo](https://github.com/JohnHansenCa/KeyPadJs/blob/main/tscript/demo/calculatorDemo.ts) for example usage.
+    ```
+    <button data-kp="key">sin()</button>
+    ```
 - data-kp = "pop-key"
     - Makes a button or div into a popup key.  The next div will automatically be the popup content. Popup keys can be nested as shown by the CalculatorDemo 'units' popup key.
+    ```
+    <!-- note: that id attributes are optional -->
+    <button id="lengthbtn" data-kp="popup-key">length</button>
+          <div id="length-popup-container" style="display:none">
+            <button data-kp="key">m</button>
+            <button data-kp="key">ft</button>
+            <button data-kp="key">inch</button>
+            <button data-kp="key">km</button>
+          </div>
+    ```
 - data-kp = "show-only-key"
     - Makes the target element visible while closing sibling elements. See the CalculorDemo 'fx' key popup container's buttons 'trig' and 'math' for examples of 'show-only-key's.
 - data-kay = 'display'
