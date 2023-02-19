@@ -29,7 +29,7 @@ See the demo [index.html file](https://github.com/JohnHansenCa/KeyPadJs/blob/mai
     ```
     <button data-kp="key">sin()</button>
     ```
-- data-kp = "pop-key"
+- data-kp = "popup-key"
     - Makes a button or div into a popup key.  The next div will automatically be the popup content. Popup keys can be nested as shown by the CalculatorDemo 'units' popup key.
     ```
     <!-- note: that id attributes are optional -->
@@ -43,5 +43,7 @@ See the demo [index.html file](https://github.com/JohnHansenCa/KeyPadJs/blob/mai
     ```
 - data-kp = "show-only-key"
     - Makes the target element visible while closing sibling elements. See the CalculorDemo 'fx' key popup container's buttons 'trig' and 'math' for examples of 'show-only-key's.
-- data-kay = 'display'
-    - Associates a "Display" object with each 'display' element providing several convenience/syntactical sugar methods and properties.
+- data-kp = 'display'
+    - Associates a "display" element with a javascript 'Display' object providing several convenience/syntactical sugar methods and properties.
+- data-kp-placement = 'right'
+    - Used with a popup key providing placement information for the popup. This is an optional attribute with the default being 'right'.  See [popper.js placement](https://popper.js.org/) a demo and [popper constructors/options](https://popper.js.org/docs/v2/constructors/) for accepted values.
