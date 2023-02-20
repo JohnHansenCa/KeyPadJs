@@ -152,6 +152,7 @@ const buttonEventHandler:EventListener= function(event:Event){
     // TODO: change to element.kpObject.getElementValue(element)
     if(DefaultListner.key != null)DefaultListner.key(element.innerText, element);
 }
+/** An array that contains a list of the currenlty open popup containers. */
 let popupContainers:HTMLElement[] = [];
 const popupEventHandler:(event:Event)=>void = function(event:Event){
     const element:HTMLElement = event.target as HTMLElement;
@@ -172,7 +173,7 @@ const popupEventHandler:(event:Event)=>void = function(event:Event){
          //TODO: close peer popup containers if open 
          // TODO: create util.popupContainer(popupelement) and util.peerPopupContainer(puContainer);
          // TODO: add unit tests for this-
-        //closePeerContainers(puContainer);
+        closePeerContainers(puContainer);
         //puContainer.classList.remove("kp-hide");
         puContainer.style.display = "";
         window.dispatchEvent(new Event('resize'));
@@ -226,9 +227,17 @@ function closeSomePopups(puContainer:HTMLElement){
         hidePopup(topVisible);
     }
 }
-// function closePeerContainers(element:HTMLElement, puContainer: HTMLElement){
-//     element.parentElement
-// }
+/** Closes 1 peer container if open */
+function closePeerContainers(element:HTMLElement){
+    let openContainer = null;
+    Array.from(element.parentElement.children).forEach(element =>{
+        popupContainers.forEach( container =>{
+            // there should only be 1 openContainer
+            if(container === element) openContainer = element;
+        })
+    })
+    if (openContainer != null) closeSomePopups(openContainer);
+}
 function hidePopup(e:HTMLElement){
     if(e != null)
         e.style.display = "none";
