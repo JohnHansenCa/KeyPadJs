@@ -22,7 +22,8 @@ There are 3 primary ways to configure a keypad using KeyPadUI.
 
 ## Major Functionality ##
 ### Data Attributes ###
-See the demo [index.html file](https://github.com/JohnHansenCa/KeyPadJs/blob/main/index.html) for an example usage of the attributes.
+KeyPadJs uses [data attributes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes) for configuration.
+See the demo [index.html file](https://github.com/JohnHansenCa/KeyPadJs/blob/main/index.html) for an example of the usage of the attributes.
 
 - data-kp = "key"
     = Makes a button or div into a key.  Values of the keys when clicked can be acquired by the default key Listener.  See the [CalculatorDemo](https://github.com/JohnHansenCa/KeyPadJs/blob/main/tscript/demo/calculatorDemo.ts) for example usage.
@@ -30,7 +31,7 @@ See the demo [index.html file](https://github.com/JohnHansenCa/KeyPadJs/blob/mai
     <button data-kp="key">sin()</button>
     ```
 - data-kp = "popup-key"
-    - Makes a button or div into a popup key.  The next div will automatically be the popup content. Popup keys can be nested as shown by the CalculatorDemo 'units' popup key.
+    - Makes a button or div into a popup key.  The next sibling div will automatically be the popup content. Popup keys can be nested as shown by the CalculatorDemo 'units' popup key.
     ```
     <!-- note: that id attributes are optional -->
     <button id="lengthbtn" data-kp="popup-key">length</button>
