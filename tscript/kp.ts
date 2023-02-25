@@ -169,8 +169,12 @@ const popupEventHandler:(event:Event)=>void = function(event:Event){
     else if(parentPopupKey(element) != null){
         let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
         if(_placement === "")_placement = 'right';
+        const boundary= document.getElementById("calculator-container");
         Popper.createPopper(element, puContainer, {
             placement: _placement,
+            modifiers: [{
+                name: 'preventOverflow',
+                options:{boundary: boundary}}],
           });
          //TODO: close peer popup containers if open 
          // TODO: create util.popupContainer(popupelement) and util.peerPopupContainer(puContainer);
@@ -290,8 +294,13 @@ addEventListener('DOMContentLoaded', (event) => {
         if(element.getAttribute("data-kp") === "popup-key"){
             let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
             if(_placement === "")_placement = 'right';
+            const boundary= document.getElementById("calculator-container");
+        
             Popper.createPopper(element, element.nextElementSibling, {
                 placement: _placement,
+                modifiers: [{
+                    name: 'preventOverflow',
+                    options:{boundary: boundary}}],
               });
         }
     });
