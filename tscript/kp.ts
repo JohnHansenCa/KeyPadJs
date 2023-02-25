@@ -167,8 +167,10 @@ const popupEventHandler:(event:Event)=>void = function(event:Event){
         }
     }
     else if(parentPopupKey(element) != null){
+        let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
+        if(_placement === "")_placement = 'right';
         Popper.createPopper(element, puContainer, {
-            placement: 'right',
+            placement: _placement,
           });
          //TODO: close peer popup containers if open 
          // TODO: create util.popupContainer(popupelement) and util.peerPopupContainer(puContainer);
