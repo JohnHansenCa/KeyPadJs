@@ -155,7 +155,8 @@ const buttonEventHandler:EventListener= function(event:Event){
 /** An array that contains a list of the currenlty open popup containers. */
 let popupContainers:HTMLElement[] = [];
 const popupEventHandler:(event:Event)=>void = function(event:Event){
-    const element:HTMLElement = event.target as HTMLElement;
+    let element:HTMLElement = event.target as HTMLElement;
+    if(element.nodeName=== "SPAN")element = element.parentElement; // occurs when span inside key element
     const puContainer =  element.nextElementSibling as HTMLElement; // todo: this is too simple, need to check
     const isSomeParentPopup =parentPopupKey(element) != null;
     if(popupContainers.includes(puContainer)){
