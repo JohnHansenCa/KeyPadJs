@@ -154,6 +154,7 @@ const buttonEventHandler:EventListener= function(event:Event){
 }
 /** An array that contains a list of the currenlty open popup containers. */
 let popupContainers:HTMLElement[] = [];
+let popperInstance;
 const popupEventHandler:(event:Event)=>void = function(event:Event){
     let element:HTMLElement = event.target as HTMLElement;
     if(element.nodeName=== "SPAN")element = element.parentElement; // occurs when span inside key element
@@ -187,14 +188,26 @@ const popupEventHandler:(event:Event)=>void = function(event:Event){
         closePeerContainers(puContainer);
         //puContainer.classList.remove("kp-hide");
         puContainer.style.display = "";
-        window.dispatchEvent(new Event('resize'));
+        //window.dispatchEvent(new Event('resize'));
         popupContainers.push(puContainer);
     }
     else{
         if(!isSomeParentPopup && popupContainers != null)closeAllPopups();
-        //puContainer.classList.remove("kp-hide");
+        if(targetStr != ""){
+            let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
+            if(_placement === "")_placement = 'right';
+            const boundary= document.getElementById("calculator-container");
+            //if(popperInstance != null) popperInstance.destroy();
+            popperInstance = Popper.createPopper(element, puContainer, {
+                placement: _placement,
+                modifiers: [{
+                    name: 'preventOverflow',
+                    options:{boundary: boundary}}],
+            });
+        }
         puContainer.style.display = "";
-        window.dispatchEvent(new Event('resize'));
+        if(targetStr == "")
+             window.dispatchEvent(new Event('resize'));
         popupContainers.push(puContainer);
     }
     event.stopPropagation();
