@@ -10,7 +10,7 @@ const dataAttribute = Object.freeze({
     VALUE: "data-kp-value",
     LABEL: "data-kp-label",
     KPDISPLAY: "data-kp-display",
-    KPTARGET: "data-kp-target",
+    TARGET: "data-kp-target",
     PLACEMENT: "data-kp-placement"
 });
 /** Identifies the kind of kp such as {@link Key}, {@link Container} etc*/
@@ -130,9 +130,17 @@ const buttonEventHandler = function (event) {
 };
 /** An array that contains a list of the currenlty open popup containers. */
 let popupContainers = [];
+let popperInstance;
 const popupEventHandler = function (event) {
-    const element = event.target;
-    const puContainer = element.nextElementSibling; // todo: this is too simple, need to check
+    let element = event.target;
+    if (element.nodeName === "SPAN")
+        element = element.parentElement; // occurs when span inside key element
+    let puContainer;
+    const targetStr = Util.getKpAttribute(element, dataAttribute.TARGET);
+    if (targetStr == "")
+        puContainer = element.nextElementSibling; // todo: this is too simple, need to check
+    else
+        puContainer = document.getElementById(targetStr);
     const isSomeParentPopup = parentPopupKey(element) != null;
     if (popupContainers.includes(puContainer)) {
         if (popupContainers[0] == puContainer) {
@@ -143,8 +151,16 @@ const popupEventHandler = function (event) {
         }
     }
     else if (parentPopupKey(element) != null) {
+        let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
+        if (_placement === "")
+            _placement = 'right';
+        const boundary = document.getElementById("calculator-container");
         Popper.createPopper(element, puContainer, {
-            placement: 'right',
+            placement: _placement,
+            modifiers: [{
+                    name: 'preventOverflow',
+                    options: { boundary: boundary }
+                }],
         });
         //TODO: close peer popup containers if open 
         // TODO: create util.popupContainer(popupelement) and util.peerPopupContainer(puContainer);
@@ -152,15 +168,29 @@ const popupEventHandler = function (event) {
         closePeerContainers(puContainer);
         //puContainer.classList.remove("kp-hide");
         puContainer.style.display = "";
-        window.dispatchEvent(new Event('resize'));
+        //window.dispatchEvent(new Event('resize'));
         popupContainers.push(puContainer);
     }
     else {
         if (!isSomeParentPopup && popupContainers != null)
             closeAllPopups();
-        //puContainer.classList.remove("kp-hide");
+        if (targetStr != "") {
+            let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
+            if (_placement === "")
+                _placement = 'right';
+            const boundary = document.getElementById("calculator-container");
+            //if(popperInstance != null) popperInstance.destroy();
+            popperInstance = Popper.createPopper(element, puContainer, {
+                placement: _placement,
+                modifiers: [{
+                        name: 'preventOverflow',
+                        options: { boundary: boundary }
+                    }],
+            });
+        }
         puContainer.style.display = "";
-        window.dispatchEvent(new Event('resize'));
+        if (targetStr == "")
+            window.dispatchEvent(new Event('resize'));
         popupContainers.push(puContainer);
     }
     event.stopPropagation();
@@ -266,8 +296,21 @@ addEventListener('DOMContentLoaded', (event) => {
             let _placement = Util.getKpAttribute(element, dataAttribute.PLACEMENT);
             if (_placement === "")
                 _placement = 'right';
-            Popper.createPopper(element, element.nextElementSibling, {
+            const boundary = document.getElementById("calculator-container");
+            const targetStr = Util.getKpAttribute(element, dataAttribute.TARGET);
+            let target;
+            if (targetStr == "") {
+                target = element.nextElementSibling;
+            }
+            else {
+                target = document.getElementById(targetStr);
+            }
+            Popper.createPopper(element, target, {
                 placement: _placement,
+                modifiers: [{
+                        name: 'preventOverflow',
+                        options: { boundary: boundary }
+                    }],
             });
         }
     });
