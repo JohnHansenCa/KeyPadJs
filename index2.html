@@ -28,21 +28,37 @@ https://www.npmjs.com/package/eslint-plugin-html -->
           flex-wrap:wrap;
           max-width: 450px;
         }
-        
         .container{
-            display: flex;
-            flex-wrap: wrap; 
+            display:grid;
+            grid-template-rows: 1fr ;
             margin: 0 auto;
+            max-width: 900px;
             }
     </style>
   </head>
-  <body data-kp-select="kp-select">
-    <h3>KeyPad JS Demo</h3>
+  <body data-kp-select="kp-select" style="max-width:900px">
+    <h3 style="margin-bottom: 0;">KeyPad JS Demo</h3>
     <div class="container" >
+      <div>
         <ul><li><a href="https://github.com/JohnHansenCa/KeyPadJs">JS source code on github </a></li>
        <li><a href="https://github.com/JohnHansenCa/KeyPadCss">CSS only source code on github </a></li></ul>
         <p>JavaScript demo and source code under construction. This demo uses Mathjs for the calculator functionality.</p>
-        <div></div>
+      </div> 
+      <div id="key-example">
+
+      </div> 
+      <script>
+        let rawtext = `<div  class="kp-key kp-key-style kp-color" data-kp="key">7</div>
+        <div  class="kp-key kp-key-style kp-color" data-kp="key">8</div>
+        <div  class="kp-key kp-key-style kp-color" data-kp="key">9</div>
+        <div  class="kp-key kp-key-style kp-color" data-kp="key">×</div>
+        `;
+        //rawtext = rawtext.replaceAll('<', "&lt;");
+        //rawtext = rawtext.replaceAll(">", "&gt;");
+        
+        const divKeyExample = document.getElementById("key-example");
+        divKeyExample.innerText = rawtext;
+      </script>
     <div class="box-keypad">
     <div id="resultContainer" >
       Calculator Status: <div id="calc-status" data-kp="display" style="border:solid; border-width:1px; border-color: fuchsia; height:1.2rem"></div>
@@ -78,7 +94,7 @@ https://www.npmjs.com/package/eslint-plugin-html -->
           <div id="math-btn-container1" class="kp-grid-container"  style="grid-template-columns: 1fr 1fr 1fr">
             <button  class="kp-key kp-key-style kp-color" data-kp="key">pi</button>
             <button  class="kp-key kp-key-style kp-color" data-kp="key">e</button>
-            <button  class="kp-key kp-key-style kp-color" data-kp="key">⅟𝑥</button>
+            <button  class="kp-key kp-key-style kp-color" data-kp="key">1/x</button>
             <button  class="kp-key kp-key-style kp-color" data-kp="key">^</button>
             <button  class="kp-key kp-key-style kp-color" data-kp="key">x2</button>
             <button  class="kp-key kp-key-style kp-color" data-kp="key">sqrt()</button>
