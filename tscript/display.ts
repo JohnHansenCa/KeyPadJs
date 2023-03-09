@@ -73,7 +73,8 @@ class Display implements iKp {
      * @returns 
      */
     displayText(text:string):Display{
-        this._element.innerText = text;
+        if(Util.isValidObject(text))
+            this._element.innerText = text;
         return this;
     }
     addText(text:string):Display{
