@@ -346,13 +346,10 @@ addEventListener('DOMContentLoaded', (event) => {
  //resultDiv.addEventListener('DOMSubtreeModified', calculate);
 //body.style.visibility = "visible";
 });
-
-
-console.log("hi");
-
-  export { Kind, dataAttribute, createUniqueId, DefaultListner, KpDataAttribute};
- export {iKpValue, iKp, iKpKeyInfo, kpHTMLElement, kpKeyHandler, displayControl, KeyListener} from "./definitions.js";
- export {Display} from "./display.js";
- export {Container} from "./container.js"
+//console.log("hi");
+export { Kind, dataAttribute, createUniqueId, DefaultListner, KpDataAttribute};
+export {iKpValue, iKp, iKpKeyInfo, kpHTMLElement, kpKeyHandler, displayControl, KeyListener} from "./definitions.js";
+export {Display} from "./display.js";
+export {Container} from "./container.js"
 export {Key} from "./key.js";
 export {Util} from "./util.js";
